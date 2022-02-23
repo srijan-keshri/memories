@@ -76,10 +76,12 @@ const Form = ({ setCurrentId, currentId }) => {
         <TextField
           name="tag"
           variant="outlined"
-          label="Tag"
+          label="Tags"
           fullWidth
-          value={postData.tag}
-          onChange={(e) => setPostData({ ...postData, tag: e.target.value })}
+          value={postData.tags}
+          onChange={(e) =>
+            setPostData({ ...postData, tags: e.target.value.split(",") })
+          }
         />
         <div className={classes.fileInput}>
           <FileBase
