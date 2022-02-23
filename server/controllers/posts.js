@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 export const getPost = async (req, res) => {
   try {
     const PostMessages = await PostMessage.find();
-    console.log(PostMessages);
 
     res.status(200).json(PostMessages);
   } catch (error) {
@@ -24,7 +23,6 @@ export const createPost = async (req, res) => {
 export const updatePost = async (req, res) => {
   const { id } = req.params;
   const { title, message, creator, selectedFile, tags } = req.body;
-  console.log("I am in the updatePost");
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No post with id: ${id}`);
 
@@ -35,7 +33,6 @@ export const updatePost = async (req, res) => {
   res.json(updatedPost);
 };
 export const deletePost = async (req, res) => {
-  console.log(req);
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No post with id: ${id}`);
