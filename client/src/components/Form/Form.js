@@ -1,8 +1,8 @@
 import useStyles from "./Styles";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import FileBase from "react-file-base64";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createPost, updatePost } from "../../actions/posts";
 const Form = ({ setCurrentId, currentId }) => {
   const [postData, setPostData] = useState({
@@ -12,9 +12,15 @@ const Form = ({ setCurrentId, currentId }) => {
     tags: "",
     image: "",
   });
+  const post = useSelector((state) =>
+    currentId ? state.posts.find((p) => p._id === currentId) : null
+  );
   const classes = useStyles();
   const dispatch = useDispatch();
   const clear = () => {};
+  useEffect(() => {
+    if (post) setPostData(post);
+  }, [post]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
