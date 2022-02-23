@@ -13,15 +13,17 @@ const Form = ({ setCurrentId, currentId }) => {
     image: "",
   });
   const post = useSelector((state) =>
-    currentId ? state.posts.find((p) => p._id === currentId) : null
+    currentId ? state.posts.find((p) => p._id === currentId) : null,
   );
   const classes = useStyles();
   const dispatch = useDispatch();
-  const clear = () => {};
   useEffect(() => {
     if (post) setPostData(post);
   }, [post]);
-
+  const clear = () => {
+    setCurrentId(null);
+    setPostData({ creator: "", title: "", message: "", tags: "", image: "" });
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     if (currentId) {
@@ -29,6 +31,7 @@ const Form = ({ setCurrentId, currentId }) => {
     } else {
       dispatch(createPost(postData));
     }
+    clear();
   };
 
   return (
@@ -39,7 +42,9 @@ const Form = ({ setCurrentId, currentId }) => {
         className={`${classes.root} ${classes.form}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">Creating a Memory</Typography>
+        <Typography variant="h6">
+          {currentId ? "Editing" : "Creating"} a Memory
+        </Typography>
         <TextField
           name="creator"
           variant="outlined"

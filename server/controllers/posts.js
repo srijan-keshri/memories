@@ -1,5 +1,5 @@
 import PostMessage from "../models/postMessage.js";
-
+import mongoose from "mongoose";
 export const getPost = async (req, res) => {
   try {
     const PostMessages = await PostMessage.find();
@@ -22,12 +22,22 @@ export const createPost = async (req, res) => {
   }
 };
 export const updatePost = async (req, res) => {
-  const { id: _id } = req.params;
-  const post = req.body;
-  if (mongoose.Types.ObjectId.isValid(_id))
-    return res.status(404).send("no post is available with this id");
-  const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, {
-    new: true,
-  });
-  res.json(updatePost);
+  const { id } = req.params;
+  const { title, message, creator, selectedFile, tags } = req.body;
+  console.log("I am in the updatePost");
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No post with id: ${id}`);
+
+  const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
+
+  await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
+
+  res.json(updatedPost);
+};
+export const deletePost = async (req, res) => {
+  const { id } = req.parms;
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No post with id: ${id}`);
+  await PostMessage.findByIdAndRemove(id);
+  res.json({ message: "post deleted sucessfully" });
 };
