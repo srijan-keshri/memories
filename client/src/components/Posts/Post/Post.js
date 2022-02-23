@@ -13,7 +13,7 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import moment from "moment";
 const Post = ({ post }) => {
   const classes = useStyles();
-
+  console.log(post.createdAt);
   return (
     <Card className={classes.card}>
       <CardMedia
@@ -24,7 +24,7 @@ const Post = ({ post }) => {
       <div className={classes.overlay}>
         <Typography variant="h6 ">{post.created}</Typography>
         <Typography variant="body2">
-          {moment(post.createdAT).fromNow()}
+          {moment(post.createdAt).fromNow()}
         </Typography>
       </div>
       <div className={classes.overlay2}>
@@ -45,13 +45,13 @@ const Post = ({ post }) => {
       <CardActions className={classes.cardActions}>
         <Button size="small" color="primary" onClick={() => {}}>
           <ThumbUpAltIcon fontSize="small" />
-          Like 
-          {post.likeCount }
+          Like
+          {post.likeCount}
         </Button>
         <Button size="small" color="primary" onClick={() => {}}>
           <DeleteIcon fontSize="small" />
-          Delete 
-          {post.likeCount }
+          Delete
+          {post.likeCount}
         </Button>
       </CardActions>
     </Card>
