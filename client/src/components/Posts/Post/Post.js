@@ -55,19 +55,20 @@ const Post = ({ post, setCurrentId }) => {
         <Button
           size="small"
           color="primary"
-          onClick={() => {
-            likePost;
-          }}
+          onClick={() => dispatch(likePost(post._id))}
         >
           <ThumbUpAltIcon fontSize="small" />
           &nbsp;Like &nbsp;
-          {post.likeCount}
+          {post.LikeCount}
         </Button>
         <Button
           size="small"
           color="primary"
           onClick={() => dispatch(deletePost(post._id))}
         >
+          {
+            //      dispatch(updatePost(currentId, postData));
+          }
           <DeleteIcon fontSize="small" />
           Delete
         </Button>
